@@ -146,14 +146,15 @@ app.post("/login", async (req, res) => {
 // crendentials
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
-const port = process.env.PORT || 3000;
+
 mongoose
   .connect(
     `mongodb+srv://${dbUser}:${dbPassword}@cluster0.bfa9v4t.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(port, () => {
-      console.log(`Servidor iniciado na porta ${port}`);
+    app.listen({
+      host: "0.0.0.0",
+      port: process.env.PORT || 3333,
     });
     console.log("conectou ao banco");
   })

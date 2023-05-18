@@ -90,7 +90,8 @@ app.post("/register", async (req, res) => {
   try {
     await user.save();
 
-    res.status(201).json({ msg: "usuario criado com sucesso" });
+    res.status(201).json({ msg: "usuario criado com sucesso",email: user.email,
+        password: user.password, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "houve um erro no servidor" });
@@ -136,7 +137,8 @@ app.post("/login", async (req, res) => {
       secret
     );
 
-    res.status(200).json({ msg: "autenticação realizada com sucesso", token });
+    res.status(200).json({ msg: "autenticação realizada com sucesso",email: user.email,
+        password: user.password, token });
   } catch (err) {
     console.log(error);
     res.status(500).json({ msg: "houve um erro no servidor" });

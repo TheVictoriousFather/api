@@ -88,8 +88,14 @@ app.post("/register", async (req, res) => {
   });
 
   try {
-    await user.save();
-
+    await user.save()
+    const secret = process.env.SECRET;
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      secret
+    );
     res.status(201).json({ msg: "usuario criado com sucesso",id: user.id,email: user.email,
         name: user.name,lastname: user.lastname, token });
   } catch (error) {
